@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class MappingHit {
 
-    static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public static Hit mapToHit(HitDto hitDto) {
         Hit hit = new Hit();

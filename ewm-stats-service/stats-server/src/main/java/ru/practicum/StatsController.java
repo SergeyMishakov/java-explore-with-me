@@ -36,8 +36,8 @@ public class StatsController {
                             @RequestParam(required = false) List<String> uris,
                             @RequestParam(defaultValue = "false") boolean unique) {
         log.info("Получен запрос на получение статистики");
-        return hitService.getStats(LocalDateTime.parse(start, dtf), LocalDateTime.parse(end, dtf), uris, unique);
+        return hitService.getStats(LocalDateTime.parse(start, DTF), LocalDateTime.parse(end, DTF), uris, unique);
     }
 
-    final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 }

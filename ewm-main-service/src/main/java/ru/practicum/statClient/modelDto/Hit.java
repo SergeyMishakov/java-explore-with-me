@@ -1,4 +1,4 @@
-package ru.practicum.modelDto;
+package ru.practicum.statClient.modelDto;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
