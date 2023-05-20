@@ -2,24 +2,21 @@ package ru.practicum.statClient.modelDto;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
-
-import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Data
-@Entity
-@Table(name = "hits")
 public class Hit {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @Column(name = "app", nullable = false)
+    @Size(max = 100)
     private String app;
-    @Column(name = "uri", nullable = false)
+    @NotNull
+    @Size(max = 100)
     private String uri;
-    @Column(name = "ip", nullable = false)
+    @NotNull
+    @Size(max = 40)
     private String ip;
-    @Column(name = "timestamp", nullable = false)
+    @NotNull
     private String timestamp;
 }
