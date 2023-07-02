@@ -33,13 +33,13 @@ public class HitServiceImpl implements HitService {
         List<StatDto> statDtoList = new ArrayList<>();
         List<Object[]> hitList;
         if (unique) {
-            if (uris == null) {
+            if (uris.size() == 0) {
                 hitList = hitRepository.getStatsUniqueHitsWithoutUris(start, end);
             } else {
                 hitList = hitRepository.getStatsUniqueHits(start, end, uris);
             }
         } else {
-            if (uris == null) {
+            if (uris.size() == 0) {
                 hitList = hitRepository.getStatsWithoutUris(start, end);
             } else {
                 hitList = hitRepository.getStats(start, end, uris);
@@ -52,6 +52,7 @@ public class HitServiceImpl implements HitService {
             StatDto statDto = new StatDto(app, uri, hits);
             statDtoList.add(statDto);
         }
+        log.info("Запрос статистики успешно обработан, отправляется ответ");
         return statDtoList;
     }
 }
