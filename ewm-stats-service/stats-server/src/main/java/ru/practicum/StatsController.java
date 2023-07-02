@@ -2,6 +2,7 @@ package ru.practicum;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.model.MappingHit;
@@ -27,6 +28,7 @@ public class StatsController {
     }
 
     @PostMapping("/hit")
+    @ResponseStatus(HttpStatus.CREATED)
     public HitDto create(@RequestBody HitDto hit) {
         log.info("Пришел запрос создания записи через сервер");
         return MappingHit.mapToHitDto(hitService.createHit(MappingHit.mapToHit(hit)));
