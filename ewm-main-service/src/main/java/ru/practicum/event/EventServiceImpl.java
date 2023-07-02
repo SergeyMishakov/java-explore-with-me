@@ -32,7 +32,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class EventServiceImpl implements EventService{
+public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
     private final CategoryRepository categoryRepository;
@@ -269,7 +269,7 @@ public class EventServiceImpl implements EventService{
         CriteriaQuery<Event> cq = cb.createQuery(Event.class);
         Root<Event> root = cq.from(Event.class);
         List<Predicate> params = new ArrayList<>();
-        if (text !=null) {
+        if (text != null) {
             params.add(cb.or(cb.like(root.get("annotation"), "%" + text + "%"),
                              cb.like(root.get("description"), "%" + text + "%")));
         }

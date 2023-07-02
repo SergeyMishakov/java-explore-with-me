@@ -2,9 +2,7 @@ package ru.practicum.event;
 
 import lombok.Data;
 import ru.practicum.enums.ActionState;
-
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
 @Data
 public class UpdateEventUserRequest {

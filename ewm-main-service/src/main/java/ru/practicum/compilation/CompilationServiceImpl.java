@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class CompilationServiceImpl implements CompilationService{
+public class CompilationServiceImpl implements CompilationService {
 
     private final CompilationRepository compilationRepository;
     private final EventRepository eventRepository;
@@ -40,7 +40,7 @@ public class CompilationServiceImpl implements CompilationService{
         Compilation oldCompilation = compilationRepository.findById(compId).orElseThrow(NotFoundException::new);
         Compilation compilation = MappingCompilation.mapToCompilation(updatedCompilation,
                 getEventList(updatedCompilation.getEvents()));
-        if ( compilation.getTitle() != null) {
+        if (compilation.getTitle() != null) {
             oldCompilation.setTitle(compilation.getTitle());
         }
         if (compilation.getEvents() != null) {
