@@ -28,7 +28,7 @@ public class BaseClient {
         return makeAndSendRequest(HttpMethod.GET, path, userId, parameters, null);
     }
 
-    protected ResponseEntity<StatDto[]> getList(String path, Long userId, @Nullable Map<String, Object> parameters) {
+    protected ResponseEntity<StatDto[]> getList(String path, Long userId, Map<String, Object> parameters) {
         return makeAndSendRequestList(HttpMethod.GET, path, userId, parameters, null);
     }
 
