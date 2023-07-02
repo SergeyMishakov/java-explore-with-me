@@ -12,6 +12,7 @@ import ru.practicum.user.UserRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -45,7 +46,7 @@ public class RequestServiceImpl implements RequestService {
             log.warn("Нельзя участвовать в неопубликованном событии");
             throw new ConflictException("Нельзя участвовать в неопубликованном событии");
         }
-        if (event.getParticipantLimit() == event.getConfirmedRequests() &&
+        if (Objects.equals(event.getParticipantLimit(), event.getConfirmedRequests()) &&
             event.getParticipantLimit() != 0) {
             log.warn("У события достигнут лимит запросов на участие");
             throw new ConflictException("У события достигнут лимит запросов на участие");
@@ -124,7 +125,7 @@ public class RequestServiceImpl implements RequestService {
             if (requests.getStatus().equals(RequestState.CONFIRMED) && !limitCheck) {
                 request.setStatus(RequestState.CONFIRMED);
                 event.setConfirmedRequests(event.getConfirmedRequests() + 1);
-                if (event.getConfirmedRequests() == event.getParticipantLimit()) {
+                if (Objects.equals(event.getConfirmedRequests(), event.getParticipantLimit())) {
                     limitCheck = true;
                 }
             } else {
