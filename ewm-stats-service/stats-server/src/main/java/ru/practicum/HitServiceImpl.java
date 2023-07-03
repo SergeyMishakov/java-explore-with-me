@@ -3,10 +3,9 @@ package ru.practicum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.practicum.exceptions.ValidationException;
 import ru.practicum.model.Hit;
 import ru.practicum.modelDto.StatDto;
-
-import javax.validation.ValidationException;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
