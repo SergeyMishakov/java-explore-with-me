@@ -304,7 +304,7 @@ public class EventServiceImpl implements EventService {
         log.info("Получен запрос в сервис получения событий для публичного API");
         HitDto hit = new HitDto();
         hit.setApp("ewm-main-service");
-        hit.setUri(request.getRequestURI());
+        hit.setUri("/events");
         hit.setTimestamp(DTF.format(LocalDateTime.now()));
         hit.setIp(request.getRemoteAddr());
         statClient.createHit(hit);
