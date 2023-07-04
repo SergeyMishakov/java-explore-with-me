@@ -38,13 +38,13 @@ public class HitServiceImpl implements HitService {
         List<StatDto> statDtoList = new ArrayList<>();
         List<Object[]> hitList;
         if (unique) {
-            if (uris.size() == 0) {
+            if (uris.isEmpty()) {
                 hitList = hitRepository.getStatsUniqueHitsWithoutUris(start, end);
             } else {
                 hitList = hitRepository.getStatsUniqueHits(start, end, uris);
             }
         } else {
-            if (uris.size() == 0) {
+            if (uris.isEmpty()) {
                 hitList = hitRepository.getStatsWithoutUris(start, end);
             } else {
                 hitList = hitRepository.getStats(start, end, uris);

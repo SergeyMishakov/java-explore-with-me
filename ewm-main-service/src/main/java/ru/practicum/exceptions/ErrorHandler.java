@@ -14,13 +14,13 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ValidationException handle(final ValidationException e) {
-        return new ValidationException();
+        return e;
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public NotFoundException handle(final NotFoundException e) {
-        return new NotFoundException();
+        return e;
     }
 
     @ExceptionHandler
