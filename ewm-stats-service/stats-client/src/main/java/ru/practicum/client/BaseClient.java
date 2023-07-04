@@ -4,6 +4,8 @@ import org.springframework.http.*;
 import org.springframework.lang.Nullable;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
+import ru.practicum.modelDto.StatDto;
+
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +26,10 @@ public class BaseClient {
 
     protected ResponseEntity<Object> get(String path, Long userId, @Nullable Map<String, Object> parameters) {
         return makeAndSendRequest(HttpMethod.GET, path, userId, parameters, null);
+    }
+
+    protected ResponseEntity<StatDto[]> getList(String path, Long userId, Map<String, Object> parameters) {
+        return makeAndSendRequestList(HttpMethod.GET, path, userId, parameters, null);
     }
 
     protected <T> ResponseEntity<Object> post(String path, T body) {
@@ -78,17 +84,23 @@ public class BaseClient {
     private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, Long userId, @Nullable Map<String, Object> parameters, @Nullable T body) {
         HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders(userId));
 
-        ResponseEntity<Object> shareitServerResponse;
+        ResponseEntity<Object> ewmServerResponse;
         try {
             if (parameters != null) {
-                shareitServerResponse = rest.exchange(path, method, requestEntity, Object.class, parameters);
+                ewmServerResponse = rest.exchange(path, method, requestEntity, Object.class, parameters);
             } else {
-                shareitServerResponse = rest.exchange(path, method, requestEntity, Object.class);
+                ewmServerResponse = rest.exchange(path, method, requestEntity, Object.class);
             }
         } catch (HttpStatusCodeException e) {
             return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsByteArray());
         }
-        return prepareGatewayResponse(shareitServerResponse);
+        return prepareGatewayResponse(ewmServerResponse);
+    }
+
+    private <T> ResponseEntity<StatDto[]> makeAndSendRequestList(HttpMethod method, String path, Long userId, Map<String, Object> parameters, @Nullable T body) {
+        HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders(userId));
+        ResponseEntity<StatDto[]> ewmServerResponse = rest.exchange(path, method, requestEntity, StatDto[].class, parameters);
+        return prepareGatewayResponseList(ewmServerResponse);
     }
 
     private HttpHeaders defaultHeaders(Long userId) {
@@ -102,6 +114,20 @@ public class BaseClient {
     }
 
     private static ResponseEntity<Object> prepareGatewayResponse(ResponseEntity<Object> response) {
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return response;
+        }
+
+        ResponseEntity.BodyBuilder responseBuilder = ResponseEntity.status(response.getStatusCode());
+
+        if (response.hasBody()) {
+            return responseBuilder.body(response.getBody());
+        }
+
+        return responseBuilder.build();
+    }
+
+    private static ResponseEntity<StatDto[]> prepareGatewayResponseList(ResponseEntity<StatDto[]> response) {
         if (response.getStatusCode().is2xxSuccessful()) {
             return response;
         }

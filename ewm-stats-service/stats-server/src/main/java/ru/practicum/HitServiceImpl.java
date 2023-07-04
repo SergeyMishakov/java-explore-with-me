@@ -3,6 +3,7 @@ package ru.practicum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.practicum.exceptions.ValidationException;
 import ru.practicum.model.Hit;
 import ru.practicum.modelDto.StatDto;
 import java.math.BigInteger;
@@ -30,16 +31,20 @@ public class HitServiceImpl implements HitService {
     @Override
     public List<StatDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
         log.info("Получен запрос получения статитики");
+        //проверить что дата начала раньше даты окончания
+        if (start.isAfter(end)) {
+            throw new ValidationException();
+        }
         List<StatDto> statDtoList = new ArrayList<>();
         List<Object[]> hitList;
         if (unique) {
-            if (uris == null) {
+            if (uris.isEmpty()) {
                 hitList = hitRepository.getStatsUniqueHitsWithoutUris(start, end);
             } else {
                 hitList = hitRepository.getStatsUniqueHits(start, end, uris);
             }
         } else {
-            if (uris == null) {
+            if (uris.isEmpty()) {
                 hitList = hitRepository.getStatsWithoutUris(start, end);
             } else {
                 hitList = hitRepository.getStats(start, end, uris);
@@ -52,6 +57,7 @@ public class HitServiceImpl implements HitService {
             StatDto statDto = new StatDto(app, uri, hits);
             statDtoList.add(statDto);
         }
+        log.info("Запрос статистики успешно обработан, отправляется ответ");
         return statDtoList;
     }
 }
