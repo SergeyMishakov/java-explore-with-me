@@ -260,7 +260,7 @@ public class EventServiceImpl implements EventService {
                                                Integer size,
                                                HttpServletRequest request) {
         //проверка на корректность категорий
-        if (categories.size() > 0) {
+        if (categories != null && categories.size() > 0) {
             for (int category : categories) {
                 categoryRepository.findById(category).orElseThrow(ValidationException::new);
             }
