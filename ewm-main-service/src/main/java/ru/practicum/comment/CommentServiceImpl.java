@@ -11,6 +11,8 @@ import ru.practicum.exceptions.ValidationException;
 import ru.practicum.user.User;
 import ru.practicum.user.UserRepository;
 
+import java.util.Objects;
+
 @Service
 @Slf4j
 public class CommentServiceImpl implements CommentService {
@@ -46,7 +48,8 @@ public class CommentServiceImpl implements CommentService {
         User author = userRepository.findById(comment.getAuthor()).orElseThrow(NotFoundException::new);
         eventRepository.findById(comment.getEvent()).orElseThrow(NotFoundException::new);
         //проверить что комментарий оставлен именно к этому событию именно этим пользователем
-        if (updatedComment.getAuthor() != comment.getAuthor() || updatedComment.getEvent() != comment.getEvent()) {
+        if (!Objects.equals(updatedComment.getAuthor(), comment.getAuthor()) ||
+                !Objects.equals(updatedComment.getEvent(), comment.getEvent())) {
             throw new ValidationException();
         }
         updatedComment.setText(comment.getText());
@@ -59,7 +62,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepository.findById(commentId).orElseThrow(NotFoundException::new);
         userRepository.findById(userId).orElseThrow(NotFoundException::new);
         //проверить что комментарий принадлежит этому пользователю
-        if (comment.getAuthor() != userId) {
+        if (!Objects.equals(comment.getAuthor(), userId)) {
             throw new ValidationException();
         }
         commentRepository.deleteById(commentId);
