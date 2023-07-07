@@ -13,7 +13,7 @@ public interface EventService {
 
     List<EventShortDto> getEvents(int userId, Integer from, Integer size);
 
-    EventFullDto getEventById(int userId, int eventId);
+    EventWithCommentsDto getEventById(int userId, int eventId);
 
     EventFullDto changeEventByUser(int userId, int eventId, ActionState actionState, Event event);
 
@@ -40,5 +40,5 @@ public interface EventService {
                                         Integer size,
                                         HttpServletRequest request);
 
-    EventFullDto getEventByIdPublic(int id, HttpServletRequest request);
+    EventWithCommentsDto getEventByIdPublic(int id, HttpServletRequest request);
 }

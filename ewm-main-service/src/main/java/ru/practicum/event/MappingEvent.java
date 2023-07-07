@@ -2,10 +2,14 @@ package ru.practicum.event;
 
 import ru.practicum.category.Category;
 import ru.practicum.category.MappingCategory;
+import ru.practicum.comment.CommentDto;
 import ru.practicum.user.MappingUser;
 import ru.practicum.user.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MappingEvent {
 
@@ -113,5 +117,37 @@ public class MappingEvent {
         event.setRequestModeration(updateEUR.getRequestModeration());
         event.setTitle(updateEUR.getTitle());
         return event;
+    }
+
+    public static EventWithCommentsDto mapToEventWithCommentsDto(Event event,
+                                                                 Category category,
+                                                                 User initiator,
+                                                                 List<CommentDto> commentList) {
+        EventWithCommentsDto eventWCD = new EventWithCommentsDto();
+        eventWCD.setAnnotation(event.getAnnotation());
+        eventWCD.setCategory(MappingCategory.mapToCategoryDto(category));
+        eventWCD.setConfirmedRequests(event.getConfirmedRequests());
+        eventWCD.setCreatedOn(event.getCreatedOn().format(DTF));
+        eventWCD.setDescription(event.getDescription());
+        eventWCD.setEventDate(event.getEventDate().format(DTF));
+        eventWCD.setId(event.getId());
+        eventWCD.setInitiator(MappingUser.mapToUserShortDto(initiator));
+        Location location = new Location();
+        location.setLat(event.getLat());
+        location.setLon(event.getLon());
+        eventWCD.setLocation(location);
+        eventWCD.setPaid(event.getPaid());
+        eventWCD.setParticipantLimit(event.getParticipantLimit());
+        eventWCD.setPublishedOn(event.getPublishedOn().format(DTF));
+        eventWCD.setRequestModeration(event.getRequestModeration());
+        eventWCD.setState(event.getState());
+        eventWCD.setTitle(event.getTitle());
+        eventWCD.setViews(event.getViews());
+        if (commentList.isEmpty()) {
+            eventWCD.setCommentList(new ArrayList<>());
+        } else {
+            eventWCD.setCommentList(commentList);
+        }
+        return eventWCD;
     }
 }
