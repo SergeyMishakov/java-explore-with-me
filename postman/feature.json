@@ -10,270 +10,7 @@
 			"name": "Создание, редактирование, удаление комментариев",
 			"item": [
 				{
-					"name": "Добавление пользователя 133",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const target = pm.response.json();\r",
-									"\r",
-									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"    pm.response.to.be.withBody; // ответ должен содержать тело\r",
-									"    pm.response.to.be.json; // и тело ответа должно быть в формате JSON\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Пользователь должен содержать поля: id, name, email\", function () {\r",
-									"pm.expect(target).to.have.property('id');\r",
-									"pm.expect(target).to.have.property('name');\r",
-									"pm.expect(target).to.have.property('email');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"User 1\",\r\n    \"email\":\"user1@yahoo.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Добавление пользователя 134",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const target = pm.response.json();\r",
-									"\r",
-									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"    pm.response.to.be.withBody; // ответ должен содержать тело\r",
-									"    pm.response.to.be.json; // и тело ответа должно быть в формате JSON\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Пользователь должен содержать поля: id, name, email\", function () {\r",
-									"pm.expect(target).to.have.property('id');\r",
-									"pm.expect(target).to.have.property('name');\r",
-									"pm.expect(target).to.have.property('email');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"User 2\",\r\n    \"email\":\"user2@yahoo.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Добавление категории 118",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"    pm.response.to.be.withBody; // ответ должен содержать тело\r",
-									"    pm.response.to.be.json; // и тело ответа должно быть в формате JSON\r",
-									"});\r",
-									"\r",
-									"const target = pm.response.json();\r",
-									"\r",
-									"pm.test(\"Категория должна содержать поля: id, name\", function () {\r",
-									"pm.expect(target).to.have.property('id');\r",
-									"pm.expect(target).to.have.property('name');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"name\":\"Category1\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/categories",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"categories"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Добавление события 103",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"    pm.response.to.be.withBody; // ответ должен содержать тело\r",
-									"    pm.response.to.be.json; // и тело ответа должно быть в формате JSON\r",
-									"});\r",
-									"\r",
-									"const target = pm.response.json();\r",
-									"\r",
-									"pm.test(\"Событие должно содержать поля: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, location, requestModeration\", function () {\r",
-									"pm.expect(target).to.have.property('id');\r",
-									"pm.expect(target).to.have.property('title');\r",
-									"pm.expect(target).to.have.property('annotation');\r",
-									"pm.expect(target).to.have.property('category');\r",
-									"pm.expect(target).to.have.property('paid');\r",
-									"pm.expect(target).to.have.property('eventDate');\r",
-									"pm.expect(target).to.have.property('initiator');\r",
-									"pm.expect(target).to.have.property('description');\r",
-									"pm.expect(target).to.have.property('participantLimit');\r",
-									"pm.expect(target).to.have.property('state');\r",
-									"pm.expect(target).to.have.property('createdOn');\r",
-									"pm.expect(target).to.have.property('location');\r",
-									"pm.expect(target).to.have.property('requestModeration');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"annotation\":\"Incidunt at cumque sint. Eaque asperiores quidem aut ratione in magnam. Nesciunt aliquid accusantium tenetur magni illum qui. Est voluptatem dolor nostrum. Quia et cupiditate amet voluptates porro nihil illo id. Necessitatibus consectetur est vel culpa exercitationem quos.\",\r\n    \"category\":118,\r\n    \"description\":\"Voluptas illum autem. Id dolorem quisquam laboriosam quaerat. Consequatur quo quia. Aut quia in.\\n \\rFacilis ab ad. Voluptas totam voluptas nisi maiores ullam ab non. Pariatur corrupti doloribus molestiae natus cumque illum molestiae. Excepturi labore tenetur nemo eos quod saepe. Ut consequatur deserunt nihil perferendis.\\n \\rEnim explicabo nulla et nihil sit vitae optio. Omnis mollitia sed accusamus reiciendis rem ratione atque blanditiis. At assumenda vel dignissimos.\",\r\n    \"eventDate\":\"2023-08-06 03:46:27\",\r\n    \"location\":{\r\n        \"lat\":-17.1215,\r\n        \"lon\":179.6203\r\n    },\r\n    \"paid\":\"false\",\r\n    \"participantLimit\":\"887\",\r\n    \"requestModeration\":true,\r\n    \"title\":\"Amet error qui et.\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/users/133/events",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"133",
-								"events"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Публикация события 103",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"    pm.response.to.be.withBody; // ответ должен содержать тело\r",
-									"    pm.response.to.be.json; // и тело ответа должно быть в формате JSON\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"stateAction\":\"PUBLISH_EVENT\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/events/103",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"events",
-								"103"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Добавление комментария к событию 103 юзером 133",
+					"name": "Добавление комментария к событию",
 					"event": [
 						{
 							"listen": "test",
@@ -330,7 +67,7 @@
 					"response": []
 				},
 				{
-					"name": "Добавление комментария к событию 103 юзером 134",
+					"name": "Добавление комментария к событию другим юзером",
 					"event": [
 						{
 							"listen": "test",
@@ -387,7 +124,7 @@
 					"response": []
 				},
 				{
-					"name": "Обновление комментария к событию 103 юзером 133",
+					"name": "Обновление комментария к событию",
 					"event": [
 						{
 							"listen": "test",
@@ -444,7 +181,7 @@
 					"response": []
 				},
 				{
-					"name": "Получение события 103 из публичного API",
+					"name": "Получение события  из публичного API",
 					"event": [
 						{
 							"listen": "test",
@@ -499,7 +236,7 @@
 					"response": []
 				},
 				{
-					"name": "Получение события 103 пользователем 133",
+					"name": "Получение события пользователем",
 					"event": [
 						{
 							"listen": "test",
@@ -591,7 +328,7 @@
 					"response": []
 				},
 				{
-					"name": "Получение события 103 из публичного API после удаления комммента 1",
+					"name": "Получение события из публичного API после удаления комммента 1",
 					"event": [
 						{
 							"listen": "test",
@@ -1275,69 +1012,6 @@
 								"events",
 								"2",
 								"comments"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Добавление события 104",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"    pm.response.to.be.withBody; // ответ должен содержать тело\r",
-									"    pm.response.to.be.json; // и тело ответа должно быть в формате JSON\r",
-									"});\r",
-									"\r",
-									"const target = pm.response.json();\r",
-									"\r",
-									"pm.test(\"Событие должно содержать поля: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, location, requestModeration\", function () {\r",
-									"pm.expect(target).to.have.property('id');\r",
-									"pm.expect(target).to.have.property('title');\r",
-									"pm.expect(target).to.have.property('annotation');\r",
-									"pm.expect(target).to.have.property('category');\r",
-									"pm.expect(target).to.have.property('paid');\r",
-									"pm.expect(target).to.have.property('eventDate');\r",
-									"pm.expect(target).to.have.property('initiator');\r",
-									"pm.expect(target).to.have.property('description');\r",
-									"pm.expect(target).to.have.property('participantLimit');\r",
-									"pm.expect(target).to.have.property('state');\r",
-									"pm.expect(target).to.have.property('createdOn');\r",
-									"pm.expect(target).to.have.property('location');\r",
-									"pm.expect(target).to.have.property('requestModeration');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"annotation\":\"Второе неопубликованное событие\",\r\n    \"category\":1,\r\n    \"description\":\"Описание неопубликованного события\",\r\n    \"eventDate\":\"2023-08-06 03:46:27\",\r\n    \"location\":{\r\n        \"lat\":-17.1215,\r\n        \"lon\":179.6203\r\n    },\r\n    \"paid\":\"false\",\r\n    \"participantLimit\":\"10\",\r\n    \"requestModeration\":true,\r\n    \"title\":\"Поход\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/users/1/events",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"1",
-								"events"
 							]
 						}
 					},
