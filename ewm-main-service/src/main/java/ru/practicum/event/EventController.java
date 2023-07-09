@@ -47,7 +47,7 @@ public class EventController {
     }
 
     @GetMapping("/users/{userId}/events/{eventId}")
-    public EventFullDto getEventById(@PathVariable int userId, @PathVariable int eventId) {
+    public EventWithCommentsDto getEventById(@PathVariable int userId, @PathVariable int eventId) {
         log.info("Получен запрос получения события по id");
         return eventService.getEventById(userId, eventId);
     }
@@ -99,7 +99,7 @@ public class EventController {
     }
 
     @GetMapping("/events/{id}")
-    public EventFullDto getEventByIdPublic(@PathVariable int id, HttpServletRequest request) {
+    public EventWithCommentsDto getEventByIdPublic(@PathVariable int id, HttpServletRequest request) {
         log.info("Получен запрос получения события по id для публичного API");
         log.info("client ip: {}", request.getRemoteAddr());
         log.info("endpoint path: {}", request.getRequestURI());

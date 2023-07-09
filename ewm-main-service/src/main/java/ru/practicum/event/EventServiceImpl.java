@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import ru.practicum.StatClient;
 import ru.practicum.category.Category;
 import ru.practicum.category.CategoryRepository;
+import ru.practicum.comment.Comment;
+import ru.practicum.comment.CommentDto;
+import ru.practicum.comment.CommentRepository;
+import ru.practicum.comment.MappingComment;
 import ru.practicum.enums.ActionState;
 import ru.practicum.enums.EventState;
 import ru.practicum.enums.SortState;
@@ -37,6 +41,7 @@ public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
     private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final StatClient statClient;
 
@@ -44,10 +49,11 @@ public class EventServiceImpl implements EventService {
     private EntityManager em;
 
     @Autowired
-    public EventServiceImpl(EventRepository eventRepository, CategoryRepository categoryRepository, UserRepository userRepository, StatClient statClient) {
+    public EventServiceImpl(EventRepository eventRepository, CategoryRepository categoryRepository, UserRepository userRepository, CommentRepository commentRepository, StatClient statClient) {
         this.eventRepository = eventRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
+        this.commentRepository = commentRepository;
         this.statClient = statClient;
     }
 
@@ -82,11 +88,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventFullDto getEventById(int userId, int eventId) {
+    public EventWithCommentsDto getEventById(int userId, int eventId) {
         User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
         Event event = eventRepository.findById(eventId).orElseThrow(NotFoundException::new);
         Category category = categoryRepository.findById(event.getCategory()).orElseThrow(NotFoundException::new);
-        return MappingEvent.mapToEventFullDto(event, category, user);
+        return MappingEvent.mapToEventWithCommentsDto(event, category, user, getCommentDtoList(event.getId()));
     }
 
     @Override
@@ -318,7 +324,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventFullDto getEventByIdPublic(int id, HttpServletRequest request) {
+    public EventWithCommentsDto getEventByIdPublic(int id, HttpServletRequest request) {
         log.info("Получен запрос в сервис получения события по ИД для публичного API");
         HitDto hit = new HitDto();
         hit.setApp("ewm-main-service");
@@ -343,6 +349,17 @@ public class EventServiceImpl implements EventService {
         eventRepository.save(event);
         User user = userRepository.findById(event.getInitiator()).orElseThrow(NotFoundException::new);
         Category category = categoryRepository.findById(event.getCategory()).orElseThrow(NotFoundException::new);
-        return MappingEvent.mapToEventFullDto(event, category, user);
+        return MappingEvent.mapToEventWithCommentsDto(event, category, user, getCommentDtoList(event.getId()));
+    }
+
+    List<CommentDto> getCommentDtoList(Integer eventId) {
+        List<Comment> commentList = commentRepository.findAllByEvent(eventId);
+        List<CommentDto> commentDtoList = new ArrayList<>();
+        for (Comment comment : commentList) {
+            User userCom = userRepository.findById(comment.getAuthor()).orElseThrow(NotFoundException::new);
+            CommentDto commentDto = MappingComment.mapToCommentDto(comment, userCom);
+            commentDtoList.add(commentDto);
+        }
+        return commentDtoList;
     }
 }
